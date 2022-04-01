@@ -1,17 +1,17 @@
-
-Смена раскаладки на US:
-(заменить 'gb' на 'us')
-sudo nano /etc/default/keyboard
-
 ### Наскройка ключа SSH ###
 Если нет ключей:
 ls -al ~/.ssh/id_*.pub	
 Создем ключ:
 ssh-keygen -t rsa -b 4096
+файл оставляем по умолчанию (enter)
 passphrase можно оставить пустой
 Закидываем ключ на малину:
-ssh-copy-ide pi@192.168.1.XXX
+ssh-copy-id pi@192.168.1.XXX
 Наслаждаемся
+
+### Смена раскаладки на US: ###
+(заменить 'gb' на 'us')
+sudo nano /etc/default/keyboard
 
 ### Все Phython штучки ###
 sudo apt-get install python3-pip
