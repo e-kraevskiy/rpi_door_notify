@@ -1,0 +1,14 @@
+
+Смена раскаладки на US:
+(заменить 'gb' на 'us')
+sudo nano /etc/default/keyboard
+
+### Наскройка ключа SSH ###
+Если нет ключей:
+ls -al ~/.ssh/id_*.pub	
+Создем ключ:
+ssh-keygen -t rsa -b 4096
+passphrase можно оставить пустой
+Закидываем ключ на малину:
+ssh-copy-ide pi@192.168.1.XXX
+Наслаждаемся
