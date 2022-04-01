@@ -2,7 +2,13 @@
 # -*- coding: utf-8 -*-
 
 import RPi.GPIO as GPIO
+import telepot
 import time
+
+# Настройка бота
+chat_id = XXXXXXXXXX  #замените на свой id
+TOKEN = "AAAAAAAAAAAAAAAAAAAAAAaa"
+bot = telepot.Bot(TOKEN)
 
 # Быбор системы нумирации пинов (как в кратинке)
 GPIO.setmode(GPIO.BCM)
@@ -20,10 +26,11 @@ door_opened = False
 try:
     while True:
     	day = time.gmtime().tm_mday
-    	if (currnet_day != day)
+    	if (day != currnet_day):
     		door_opened = False
         if GPIO.input(4) and not door_opened:
             print('NOTIFICATION')
+            bot.sendMessage(chat_id, 'Открыть')
             door_opened = True
         else:
             print('CLOSED')

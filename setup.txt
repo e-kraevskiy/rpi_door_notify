@@ -12,3 +12,9 @@ passphrase можно оставить пустой
 Закидываем ключ на малину:
 ssh-copy-ide pi@192.168.1.XXX
 Наслаждаемся
+
+### Все Phython штучки ###
+sudo apt-get install python3-pip
+sudo apt-get install python3-rpi.gpio
+sudo apt-get install python-rpi.gpio
+sudo pip install telepot
