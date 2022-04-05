@@ -18,3 +18,11 @@ sudo apt-get install python3-pip
 sudo apt-get install python3-rpi.gpio
 sudo apt-get install python-rpi.gpio
 sudo pip install telepot
+
+### Копирование скрипта на малинку (из папки со скриптом)
+scp ./door_notify.py pi@192.168.1.XXX:/home/pi/
+
+### Автозапуск через cron:
+sudo crontab -e
+Добавляем в конец 
+@reboot /home/pi/door_notify.py

@@ -24,7 +24,6 @@ GPIO.setup(4, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 # Текущая дата
 today = time.gmtime().tm_mday
-print('Сегодня', today, 'число')
 door_was_opened = False
 was_friday_message = False
 
@@ -70,7 +69,6 @@ while True:
     # Если сегодня дверь уже открывали, то просыпаемся раз в 30 мин
     if (door_was_opened):
         checkFriday()
-        print('SLEEP for 30 min')
         time.sleep(30 * 60)
     # Сбрасываем флаг если наступил новый день
     if (currnet_time.tm_mday != today):
@@ -78,12 +76,8 @@ while True:
         door_was_opened = False
         was_friday_message = False
     if GPIO.input(4):
-        print('OPENED')
         if door_was_opened == False:
             if checkMoney(currnet_time) == False:
                 bot.sendMessage(chat_id, 'Дверь открыта')
-            print('NOTIFICATION')
             door_was_opened = True
-    else:
-        print('CLOSED')
     time.sleep(1)
