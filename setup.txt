@@ -13,16 +13,20 @@ ssh-copy-id pi@192.168.1.XXX
 (заменить 'gb' на 'us')
 sudo nano /etc/default/keyboard
 
+### Поменять часовой пояс ###
+sudo raspi-config 
+(Localisation Options -> Timezone -> Europe -> Moscow)
+
 ### Все Phython штучки ###
 sudo apt-get install python3-pip
 sudo apt-get install python3-rpi.gpio
 sudo apt-get install python-rpi.gpio
 sudo pip install telepot
 
-### Копирование скрипта на малинку (из папки со скриптом)
+### Копирование скрипта на малинку (из папки со скриптом) ###
 scp ./door_notify.py pi@192.168.1.XXX:/home/pi/
 
 ### Автозапуск через cron:
 sudo crontab -e
 Добавляем в конец 
-@reboot /home/pi/door_notify.py
+@reboot python3 /home/pi/door_notify.py

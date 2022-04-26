@@ -5,16 +5,15 @@ import RPi.GPIO as GPIO
 import telepot
 import time
 
-from enum import Enum
 from datetime import datetime
 
 # Даты ЗП и аванса
-PAID_DATE = 27
-PREPAID_DATE = 12
+PAID_DATE = 12
+PREPAID_DATE = 27
 
 # Настройка бота
-chat_id = 1111111111                        #замените на свой id
-TOKEN = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" #замените на TOKEN бота
+chat_id = 111111111111                        #замените на свой id
+# TOKEN = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" #замените на TOKEN бота
 bot = telepot.Bot(TOKEN)
 
 # Быбор системы нумирации пинов (как в кратинке)
@@ -24,6 +23,7 @@ GPIO.setup(4, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 # Текущая дата
 today = time.gmtime().tm_mday
+print("Время: ", datetime.now())
 door_was_opened = False
 was_friday_message = False
 
@@ -39,14 +39,14 @@ def checkMoney(time):
         return True
     # Если сегодня пятница, а ЗП на выходных
     if (time.tm_wday == 4 and  
-        time.tm_mday + 1 == PAID_DATE or
-        time.tm_mday + 2 == PAID_DATE):
+        (time.tm_mday + 1 == PAID_DATE or
+         time.tm_mday + 2 == PAID_DATE)):
         bot.sendMessage(chat_id, 'Дверь открыта\nСегодня получим большую копейку')
         return True
     # Если сегодня пятница, а аванс на выходных
     if (time.tm_wday == 4 and  
-        time.tm_mday + 1 == PREPAID_DATE or
-        time.tm_mday + 2 == PREPAID_DATE):
+        (time.tm_mday + 1 == PREPAID_DATE or
+         time.tm_mday + 2 == PREPAID_DATE)):
         bot.sendMessage(chat_id, 'Дверь открыта\nСегодня получим копейку')
         return True
     return False
