@@ -4,6 +4,7 @@
 import RPi.GPIO as GPIO
 import telepot
 import time
+import requests 
 
 from datetime import datetime
 
@@ -26,6 +27,32 @@ today = time.gmtime().tm_mday
 print("Время: ", datetime.now())
 door_was_opened = False
 was_friday_message = False
+
+
+
+def main():
+    # checkInternet() # Проверяем подключение к интернету
+
+    # Основной цикл бота
+    while True:
+        currnet_time = time.gmtime()
+        # Если сегодня дверь уже открывали, то просыпаемся раз в 30 мин
+        if (door_was_opened):
+            checkFriday()
+            time.sleep(30 * 60)
+        # Сбрасываем флаг если наступил новый день
+        if (currnet_time.tm_mday != today):
+            today = time.gmtime().tm_mday
+            door_was_opened = False
+            was_friday_message = False
+        if GPIO.input(4):
+            if door_was_opened == False:
+                if checkMoney(currnet_time) == False:
+                    bot.sendMessage(chat_id, 'Дверь открыта')
+                door_was_opened = True
+        time.sleep(1)
+
+
 
 # Поступают ли гроши на наши карты сегодня
 def checkMoney(time):
@@ -62,6 +89,21 @@ def checkFriday():
         was_friday_message == False):
         bot.sendMessage(chat_id, 'Не забываем полить цветы и заполнить ПЛМ)')
         was_friday_message = True
+
+# Проверить интернет соединение
+def checkInternet():
+    internet = False
+    while not internet:
+        try:
+            requests.head("http://www.google.com/", timeout=1)
+            # print("The internet connection is active")
+            internet = True
+        except requests.ConnectionError:
+            pass
+            # print("The internet connection is down")
+
+
+checkInternet() # Проверяем подключение к интернету
 
 # Основной цикл бота
 while True:

@@ -47,5 +47,5 @@ chmod +x ~/bot_start.sh
 
 И настроить автозапуск при включении через cron:
 sudo crontab -e
-Добавляем в конец 
+Добавляем в конец файла:
 @reboot /home/pi/bot_start.sh
