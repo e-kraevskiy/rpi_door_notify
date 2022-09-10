@@ -2,20 +2,20 @@
 # -*- coding: utf-8 -*-
 
 import RPi.GPIO as GPIO
-import telepot
+import telebot
 import time
 import requests 
 import datetime
 
 
 # Даты ЗП и аванса
-PAID_DATE = 10
+PAID_DATE = 12
 PREPAID_DATE = 27
 
 # Настройка бота
 chat_id = 111111111                        #замените на свой id
 TOKEN = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" #замените на TOKEN бота
-bot = telepot.Bot(TOKEN)
+bot = telebot.TeleBot(TOKEN)
 
 # Быбор системы нумирации пинов (как в кратинке)
 GPIO.setmode(GPIO.BCM)
@@ -23,7 +23,7 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setup(4, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 # Имя файла в котором хранится дата последнего увольнения
-dimissal_file_name = "last_dimissal_date.txt"
+dimissal_file_name = "last_dismissal_date.txt"
 
 # Текущая дата
 today = time.gmtime().tm_mday
@@ -59,7 +59,7 @@ def main():
                 if checkMoney(currnet_time) != "":
                     message += checkMoney(currnet_time)
                 # Отправляем сообщение, поднимаем флаг
-                bot.sendMessage(chat_id, message)
+                bot.send_message(chat_id, message)
                 door_was_opened = True
         time.sleep(1)
 
@@ -92,7 +92,7 @@ def checkFriday():
     if (time.gmtime().tm_wday == 4 and
         now > today_3_pm and
         was_friday_message == False):
-        bot.sendMessage(chat_id, 'Не забываем полить цветы и заполнить ПЛМ)')
+        bot.send_message(chat_id, 'Не забываем полить цветы и заполнить ПЛМ)')
         was_friday_message = True
 
 # Проверить интернет соединение
@@ -112,14 +112,14 @@ def checkInternet():
 def daysFfterDismissal():
     file = open(dimissal_file_name, "r")
     line = file.readline().split()
+    file.close()
     if (len(line) == 0):
         return "-1"
     format = "%Y-%m-%d"
     read_day = datetime.datetime.strptime(line[0], format).date()
-    file.close()
     cur_day = datetime.date.today()
     dif = (cur_day - read_day).days 
     return str(dif)
-
+    
 
 main()

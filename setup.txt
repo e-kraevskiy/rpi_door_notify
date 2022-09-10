@@ -22,11 +22,11 @@ sudo nano /etc/default/keyboard
 sudo raspi-config 
 (Localisation Options -> Timezone -> Europe -> Moscow)
 
-### Все Phython штучки ###
+### Phython requirements ###
 sudo apt-get install python3-pip
 sudo apt-get install python3-rpi.gpio
-sudo apt-get install python-rpi.gpio
-sudo pip install telepot
+#sudo apt-get install python-rpi.gpio
+sudo pip install pytelegrambotapi
 
 ### Копирование скрипта на малинку (из папки со скриптом) ###
 scp ./door_notify.py pi@192.168.1.XXX:/home/pi/
@@ -39,6 +39,7 @@ nano ~/bot_start.sh
 #!/bin/bash
 sleep 10
 sudo python /home/pi/door_notify.py &
+sudo python /home/pi/message_handler.py &
 
 # Задержка сделана для того, чтобы все успело подгрузится 
 к запуску программы
