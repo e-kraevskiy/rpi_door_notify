@@ -8,8 +8,9 @@ import datetime
 
 
 def main():
-    checkInternet()
-    afterLastDismissal()
+    # checkInternet()
+    ans = afterLastDismissal()
+    print("res=",ans)
 
 
 # Проверить интернет соединение
@@ -18,7 +19,7 @@ def checkInternet():
     while not internet:
         try:
             requests.head("http://www.google.com/", timeout=1)
-            print('The internet connection is active')
+            print("The internet connection is active")
             internet = True
         except requests.ConnectionError:
             pass
@@ -26,32 +27,28 @@ def checkInternet():
 
 
 def afterLastDismissal():
-    file = open('days_after_last_dimissal.txt', 'r')
+    file = open("days_after_last_dimissal.txt", "r")
 
-    s = (file.readline().split())
-    # if (len(s) > 0):
-    #     cur = int(s[0])
-    # else:
-    #     cur = -2
+    s = file.readline().split()
+    if (len(s) == 0):
+        return -1
     format = "%Y-%m-%d"
     print(s)
     read_data = ""
-    datetime.strptime.strptime(read_data, format)
-    # file = open('days_after_last_dimissal.txt', 'w')
+    read_day = datetime.datetime.strptime(s[0], format).date()
+    print("read_day=", read_day)
     # cur += 1
     file.close()
-    file = open('days_after_last_dimissal.txt', 'w')
 
-    timenow = datetime.date.today()
-    dif = timenow - read_data
-    print('dif=', dif)
-    print(timenow)
+
+    # file = open('days_after_last_dimissal.txt', 'w')
+    cur_day = datetime.date.today()
+    dif = (cur_day - read_day).days 
+    return dif
+    # print(timenow)
     # file.write(str(cur))
-    file.write(str(timenow))
-    file.close()
+    # file.write(str(timenow))
+    # file.close()
 
 
 main()
-
-
-# checkInternet()
