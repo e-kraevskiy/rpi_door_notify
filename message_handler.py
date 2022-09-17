@@ -38,7 +38,7 @@ def dismissal_handler(message):
     if dif < 0:
         bot.send_message(message.chat.id, "К сожалению, увольняться в будущем нельзя")    
         return
-    bot.send_message(message.chat.id, "Дата успешно установлена\nДней с момента последнего увальнения: " + str(dif))
+    bot.send_message(message.chat.id, "Дата успешно установлена\nДней с момента последнего увольнения: " + str(dif))
     file = open(dimissal_file_name, 'w')
     file.write(str(read_day))
     file.close()

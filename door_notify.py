@@ -54,6 +54,7 @@ def main():
         if GPIO.input(4):
             if door_was_opened == False:
                 days_str = daysFfterDismissal()
+                message = ""
                 if days_str != "-1":
                     message += "\nДней без увольнений - " + days_str
                 if checkMoney(currnet_time) != "":
