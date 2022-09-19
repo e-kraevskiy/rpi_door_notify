@@ -37,7 +37,6 @@ def main():
     global door_was_opened
     global today
     global was_friday_message
-    message = "Дверь открыта"
     # Основной цикл бота
     while True:
         currnet_time = time.gmtime()

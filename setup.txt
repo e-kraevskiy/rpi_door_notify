@@ -50,3 +50,6 @@ chmod +x ~/bot_start.sh
 sudo crontab -e
 Добавляем в конец файла:
 @reboot /home/pi/bot_start.sh
+
+# Ручное обновление времени и даты
+sudo date -s "Mon Sep 19 07:51:00 MSK 2022"
